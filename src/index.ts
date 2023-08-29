@@ -31,31 +31,40 @@ export function notionBlocksToMarkdown(
       case "heading_1":
         content += `\n\n${"#".repeat(
           headingStartingLevel
-        )} ${richTextItemsToMarkdown(block.heading_1.rich_text, { noHtml })}`;
+        )} ${notionRichTextItemsToMarkdown(block.heading_1.rich_text, {
+          noHtml,
+        })}`;
         break;
       case "heading_2":
         content += `\n\n${"#".repeat(
           headingStartingLevel
-        )}# ${richTextItemsToMarkdown(block.heading_2.rich_text, { noHtml })}`;
+        )}# ${notionRichTextItemsToMarkdown(block.heading_2.rich_text, {
+          noHtml,
+        })}`;
         break;
       case "heading_3":
         content += `\n\n${"#".repeat(
           headingStartingLevel
-        )}## ${richTextItemsToMarkdown(block.heading_3.rich_text, { noHtml })}`;
-        break;
-      case "paragraph":
-        content += `\n\n${richTextItemsToMarkdown(block.paragraph.rich_text, {
+        )}## ${notionRichTextItemsToMarkdown(block.heading_3.rich_text, {
           noHtml,
         })}`;
         break;
+      case "paragraph":
+        content += `\n\n${notionRichTextItemsToMarkdown(
+          block.paragraph.rich_text,
+          {
+            noHtml,
+          }
+        )}`;
+        break;
       case "bulleted_list_item":
-        content += `\n* ${richTextItemsToMarkdown(
+        content += `\n* ${notionRichTextItemsToMarkdown(
           block.bulleted_list_item.rich_text,
           { noHtml }
         )}`;
         break;
       case "numbered_list_item":
-        content += `\n1. ${richTextItemsToMarkdown(
+        content += `\n1. ${notionRichTextItemsToMarkdown(
           block.numbered_list_item.rich_text,
           { noHtml }
         )}`;
@@ -68,7 +77,7 @@ export function notionBlocksToMarkdown(
         }
         for (let i = 0; i < block.table_row.cells.length; i++) {
           const cell = block.table_row.cells[i];
-          content += ` ${richTextItemsToMarkdown(cell, { noHtml })} |`;
+          content += ` ${notionRichTextItemsToMarkdown(cell, { noHtml })} |`;
         }
         // If we're the first table row, then we're the heading row
         if (!lastBlockWasTableRow) {
@@ -77,20 +86,29 @@ export function notionBlocksToMarkdown(
         }
         break;
       case "quote":
-        content += `\n\n> ${richTextItemsToMarkdown(block.quote.rich_text, {
-          noHtml,
-        })}`;
+        content += `\n\n> ${notionRichTextItemsToMarkdown(
+          block.quote.rich_text,
+          {
+            noHtml,
+          }
+        )}`;
         break;
       case "code":
-        content += `\n\n~~~\n${richTextItemsToMarkdown(block.code.rich_text, {
-          noHtml,
-        })}\n~~~`;
+        content += `\n\n~~~\n${notionRichTextItemsToMarkdown(
+          block.code.rich_text,
+          {
+            noHtml,
+          }
+        )}\n~~~`;
         break;
       case "image":
         if (block.image.type === "external") {
-          content += `\n\n![${richTextItemsToMarkdown(block.image.caption, {
-            noHtml,
-          })}](${block.image.external.url})`;
+          content += `\n\n![${notionRichTextItemsToMarkdown(
+            block.image.caption,
+            {
+              noHtml,
+            }
+          )}](${block.image.external.url})`;
         }
         break;
       default:
@@ -108,7 +126,7 @@ export function notionBlocksToMarkdown(
   return content;
 }
 
-function richTextItemsToMarkdown(
+export function notionRichTextItemsToMarkdown(
   richTextItems: RichTextItemResponse[],
   opts: { noHtml: boolean }
 ): string {

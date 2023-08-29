@@ -1,6 +1,6 @@
 # `notion-blocks-to-markdown`
 
-> Converts Notion `BlockObjectResponse[]` to markdown.
+> Converts Notion `BlockObjectResponse[]` or `RichTextItemResponse[]` to markdown.
 
 In contrast to [`notion-to-md`](https://github.com/souvikinator/notion-to-md), this package does not automatically fetch unresolved children. Fetcing blocks from Notion is left to the user, and if some blocks have unresolved contents, a message will be displayed instead.
 
@@ -8,7 +8,10 @@ In contrast to [`notion-to-md`](https://github.com/souvikinator/notion-to-md), t
 
 ```ts
 import { Client as NotionClient } from "@notionhq/client";
-import { notionBlocksToMarkdown } from "notion-blocks-to-markdown";
+import {
+  notionBlocksToMarkdown,
+  notionRichTextItemsToMarkdown,
+} from "notion-blocks-to-markdown";
 
 const notionClient = new NotionClient({
   auth: process.env.NOTION_API_KEY,
@@ -21,6 +24,10 @@ const response = await notionClient.blocks.children.list({
 const markdown = notionBlocksToMarkdown(blocks, {
   headingStartingLevel: 2,
   cleanOutput: true,
+  noHtml: false,
+});
+
+const markdown = notionRichTextItemsToMarkdown(blocks[0].heading_1.rich_text, {
   noHtml: false,
 });
 ```
