@@ -128,9 +128,10 @@ export function notionBlocksToMarkdown(
 
 export function notionRichTextItemsToMarkdown(
   richTextItems: RichTextItemResponse[],
-  opts: { noHtml: boolean }
+  opts?: { noHtml: boolean }
 ): string {
   let richText = "";
+  const noHtml = opts?.noHtml ?? false;
   for (let i = 0; i < richTextItems.length; i++) {
     const item = richTextItems[i];
 
@@ -141,8 +142,8 @@ export function notionRichTextItemsToMarkdown(
     if (annotations.bold) text = `**${text}**`;
     if (annotations.italic) text = `_${text}_`;
     if (annotations.strikethrough) text = `~~${text}~~`;
-    if (annotations.underline && !opts.noHtml) text = `<u>${text}</u>`;
-    if (annotations.color !== "default" && !opts.noHtml) {
+    if (annotations.underline && !noHtml) text = `<u>${text}</u>`;
+    if (annotations.color !== "default" && !noHtml) {
       text = `<span class="${annotations.color}">${text}</span>`;
     }
     if (item.href) text = `[${text}](${item.href})`;
