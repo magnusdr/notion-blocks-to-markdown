@@ -135,7 +135,17 @@ export function notionRichTextItemsToMarkdown(
   for (let i = 0; i < richTextItems.length; i++) {
     const item = richTextItems[i];
 
-    let text = item.plain_text;
+    let text = item.plain_text.trim();
+
+    /**
+     * We need to preserve leading and trailing spaces, because
+     * it's important to be compliant with markdown spec.
+     */
+    const leadingSpaceMatch = item.plain_text.match(/^(\s*)/);
+    const trailingSpaceMatch = item.plain_text.match(/(\s*)$/);
+    const leadingSpace = leadingSpaceMatch ? leadingSpaceMatch[0] : "";
+    const trailingSpace = trailingSpaceMatch ? trailingSpaceMatch[0] : "";
+
     const annotations = item.annotations;
 
     if (annotations.code) text = `\`${text}\``;
@@ -148,7 +158,7 @@ export function notionRichTextItemsToMarkdown(
     }
     if (item.href) text = `[${text}](${item.href})`;
 
-    richText += text;
+    richText += leadingSpace + text + trailingSpace;
   }
 
   return richText;
