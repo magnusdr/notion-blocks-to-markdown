@@ -1,7 +1,7 @@
 import type {
   BlockObjectResponse,
   RichTextItemResponse,
-} from "@notionhq/client/build/src/api-endpoints";
+} from "@notionhq/client/build/src/api-endpoints.d.ts";
 
 export function notionBlocksToMarkdown(
   blocks: BlockObjectResponse[],
