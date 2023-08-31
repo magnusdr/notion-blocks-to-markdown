@@ -94,12 +94,11 @@ export function notionBlocksToMarkdown(
         )}`;
         break;
       case "code":
-        content += `\n\n~~~\n${notionRichTextItemsToMarkdown(
-          block.code.rich_text,
-          {
-            noHtml,
-          }
-        )}\n~~~`;
+        content += `\n\n~~~${
+          block.code.language
+        }\n${notionRichTextItemsToMarkdown(block.code.rich_text, {
+          noHtml,
+        })}\n~~~`;
         break;
       case "image":
         if (block.image.type === "external") {
