@@ -110,6 +110,16 @@ export function notionBlocksToMarkdown(
           )}](${block.image.external.url})`;
         }
         break;
+      case "video":
+        if (block.video.type === "external") {
+          content += `\n\n![${notionRichTextItemsToMarkdown(
+            block.video.caption,
+            {
+              noHtml,
+            }
+          )}](${block.video.external.url})`;
+        }
+        break;
       default:
         if (!cleanOutput) {
           content += `\n\n\`Ignoring block type "${block.type}"\``;

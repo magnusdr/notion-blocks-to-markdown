@@ -55,6 +55,7 @@ Here is a list of the supported block types at this point, feel free to open a P
 | `breadcrumb`         | ❌                                     |
 | `table_of_contents`  | ❌                                     |
 | `image`              | ✅ Only if `image.type === "external"` |
+| `video`              | ✅ Only if `video.type === "external"` |
 
 ... there are a lot more types, but not all of them makes sense to convert to markdown.
 
