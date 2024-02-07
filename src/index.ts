@@ -101,13 +101,19 @@ export function notionBlocksToMarkdown(
         })}\n~~~`;
         break;
       case "image":
-        if (block.image.type === "external") {
+        {
+          let url = "";
+          if (block.image.type === "external") {
+            url = block.image.external.url;
+          } else if (block.image.type === "file") {
+            url = block.image.file.url;
+          }
           content += `\n\n![${notionRichTextItemsToMarkdown(
             block.image.caption,
             {
               noHtml,
             }
-          )}](${block.image.external.url})`;
+          )}](${url})`;
         }
         break;
       case "video":
