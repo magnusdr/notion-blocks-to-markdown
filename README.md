@@ -51,7 +51,7 @@ Here is a list of the supported block types at this point, feel free to open a P
 | `equation`           | ❌                                     |
 | `code`               | ✅                                     |
 | `callout`            | ❌                                     |
-| `divider`            | ❌                                     |
+| `divider`            | ✅                                     |
 | `breadcrumb`         | ❌                                     |
 | `table_of_contents`  | ❌                                     |
 | `image`              | ✅ Only if `image.type === "external"` |

@@ -126,6 +126,9 @@ export function notionBlocksToMarkdown(
           )}](${block.video.external.url})`;
         }
         break;
+      case "divider":
+        content += `\n\n---`;
+        break;
       default:
         if (!cleanOutput) {
           content += `\n\n\`Ignoring block type "${block.type}"\``;
